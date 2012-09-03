@@ -1,4 +1,6 @@
-import age
+import age.game
+import age.actor
+
 import sfml as sf
 import logging as log
 import sys

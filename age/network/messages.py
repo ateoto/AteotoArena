@@ -3,9 +3,10 @@ import pickle
 import zlib
 from base64 import b64encode, b64decode
 
+PLAYER_UPDATE = 0
+CHAT_MESSAGE = 1
+
 class Message(object):
-    PLAYER_UPDATE = 0
-    CHAT_MESSAGE = 1
 
     def __init__(self, payload, type):
         self.payload = payload

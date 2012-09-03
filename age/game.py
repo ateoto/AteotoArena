@@ -1,7 +1,7 @@
 import sfml as sf
-from age.map import TiledMap
-from age.clock import GameClock
-from age.ui import UI
+from .map import TiledMap
+from .clock import GameClock
+from .ui import UI
 import logging as log
 
 class Game(object):
