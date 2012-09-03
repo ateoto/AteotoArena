@@ -34,12 +34,10 @@ class PCActor(MoveableActor):
                             'WEST' : sf.Vector2f(-1, 0)}
 
         self.sprite = sf.Sprite(sf.Texture.load_from_file('data/actors/human_male/walkcycle/BODY_animation.png'))
-        #self.sprite.set_texture_rect(sf.IntRect(0, 128, 64, 64))
         self.sprite.position = self.location
 
     def handle_input(self, event, dt):
         if event.code in self.moving_codes:
-            log.debug(dt)
             if event.code == sf.Keyboard.W:
                 self.move(self.directions['NORTH'], dt)
             elif event.code == sf.Keyboard.A:
@@ -58,11 +56,8 @@ class PCActor(MoveableActor):
         pass
 
     def move(self, location_delta, dt):
-        log.debug(self.movespeed * self.timescale * dt)
         self.location += location_delta * self.movespeed * self.timescale * dt
-
         self.sprite.position = self.location
-        log.debug('Sprite Position: {0}'.format(self.sprite.position))
 
     def draw(self, target, states):
         target.draw(self.sprite)

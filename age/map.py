@@ -29,7 +29,6 @@ class MapObject(object):
         self.position = sf.Vector2f(self.location.left, self.location.top)
         self.properties = properties
 
-
 class TiledLayerIterator:
     def __init__(self, layer):
         self.layer = layer
@@ -108,63 +107,32 @@ class TiledMap:
             ts = TiledTileset(firstgid, image)
             self.tiles.update(ts.tiles)
 
-        log.info('Tilesets loaded')
+        log.debug('Tilesets loaded')
 
         for layer in root.findall('layer'):
             tl = TiledLayer(self.width, self.height)
             tl.name = layer.attrib.get('name')
-
-            load_start_time = time.time()
+            tl.properties = []
+    
+            for properties in layer.findall('properties'):
+                for property in properties.findall('property'):
+                    property_name = property.attrib.get('name')
+                    property_value = property.attrib.get('value')
+                    if property_name == 'visible':
+                        tl.visible = bool(int(property_value))
+           
             data = layer.find('data').text.rstrip().lstrip()
             data = b64decode(data)
             data = gzip.GzipFile(fileobj=StringIO.StringIO(data))
             data = data.read()
-            log.debug(len(data))
             data = struct.unpack('<%di' % (len(data)/4,), data)
-            log.debug(len(data))
             tl.raw_data = data
-            log.debug("Unpacked data in {0} seconds".format(time.time() - load_start_time))
-
-            drawable_x_range = range(self.area.left / 32, int(math.ceil(self.area.width / 32)) + 1)
-            drawable_y_range = range(self.area.top / 32, int(math.ceil(self.area.height / 32)) + 1)
-
-            for i, gid in enumerate(data):
-                if gid < 1: continue
-                x = i  % self.width
-                y = i // self.width
- 
-                if x in drawable_x_range and y in drawable_y_range:
-                    if gid in self.tiles.keys():
-                        tl.cells[x,y] = TiledCell((x * 32, y * 32), self.tiles[gid])
-            log.debug("Finished Loading data in {0} seconds.".format(time.time() - load_start_time))
-    
-
-            render_start_time = time.time()
-            rt = sf.RenderTexture(self.area.width, self.area.height)
-            rt.clear(sf.Color.TRANSPARENT)
-    
-            for y in drawable_y_range:
-                for x in drawable_x_range:
-                    cell = tl[x,y]
-
-                    if cell is not None:
-                        rt.draw(cell)
-            log.debug("Finished rendering layer in {0} seconds.".format(time.time() - render_start_time))
-            """
-            for cell in tl:
-                if cell is not None:
-                    rt.draw(cell)
-            """
-
-            rt.display()
-            tl.drawable.set_texture(sf.Texture.load_from_image(rt.texture.copy_to_image()))
-
-            tl.drawable.size = sf.Vector2f(800, 600)
-            tl.drawable.texture_rect = sf.IntRect(0,0,800,600)
-            
             self.layers.append(tl)
-            
-        log.info('Layers loaded')
+
+        self.load_cell_data(self.area, force = True)
+        self.generate_layer_textures(self.area)
+
+        log.debug('Layers loaded')
 
         for group in root.findall('objectgroup'):
             for object in group.findall('object'):
@@ -183,13 +151,52 @@ class TiledMap:
 
                 self.objects.update({o.name: o})
 
-        log.info('Objects loaded')
+        log.debug('Objects loaded')
 
         self.load_finished = time.time()
         load_time = self.load_finished - self.load_started
-        log.info('Level finished loading in {0} seconds.'.format(load_time))
+        log.debug('Level loaded in {0} seconds.'.format(load_time))
 
-    def update(self, player):
+    def load_cell_data(self, area, force = False):
+        """
+        If force is true, this will regenerate tiles that were previously loaded.
+        """
+        
+        drawable_x_range = range(area.left / 32, int(math.ceil(area.width / 32)) + 1)
+        drawable_y_range = range(area.top / 32, int(math.ceil(area.height / 32)) + 1)
+
+        for layer in self.layers:
+            for i, gid in enumerate(layer.raw_data):
+                if gid < 1: continue
+                x = i  % self.width
+                y = i // self.width
+
+                if x in drawable_x_range and y in drawable_y_range:
+                    if gid in self.tiles.keys():
+                        if not isinstance(layer[x,y], TiledCell) or force:
+                            layer.cells[x,y] = TiledCell((x * 32, y * 32), self.tiles[gid])
+            
+    def generate_layer_textures(self, area):
+        drawable_x_range = range(area.left / 32, int(math.ceil(area.width / 32)) + 1)
+        drawable_y_range = range(area.top / 32, int(math.ceil(area.height / 32)) + 1)
+
+        for layer in self.layers:
+            if layer.visible:
+                rt = sf.RenderTexture(area.width, area.height)
+                rt.clear(sf.Color.TRANSPARENT)
+            
+                for y in drawable_y_range:
+                    for x in drawable_x_range:
+                        cell = layer[x,y]
+                        if cell is not None:
+                            rt.draw(cell)
+            
+                rt.display()
+                layer.drawable.set_texture(sf.Texture.load_from_image(rt.texture.copy_to_image()))
+                layer.drawable.size = sf.Vector2f(area.width, area.height)
+                layer.drawable.texture_rect = sf.IntRect(0, 0, area.width, area.height)
+
+    def update(self, area):
         """
         Here we set the map area to the player's location, determine if we need to load more of the map, and so on.
         """
