@@ -16,12 +16,13 @@ class Game(object):
 
         self.clock = GameClock()
         self.window = sf.RenderWindow(sf.VideoMode(res.x, res.y), title, style)
-
+        self.scope = []
         self.running = False
         self.player = None
         self.level = None
         self.ui = UI(sf.Vector2f(self.window.width, self.window.height))
         self.fullscreen = False
+
         self.show = sf.FloatRect(0,0,self.window.width, self.window.height)
         # Build scrolling borders
         w_percent = self.window.width * 0.30
@@ -37,9 +38,10 @@ class Game(object):
         self.window.active = True
 
     def load_animations(self, animations_file):
+        self.window.active = False
         self.player.load_animations(self.clock, animations_file)
         self.window.active = True
-
+        
     def update(self, dt):
         pass
 
@@ -74,9 +76,6 @@ class Game(object):
         self.clock.schedule_interval(self.clock.calculate_fps, 1)
 
         fps_text = sf.Text('FPS:', sf.Font.load_from_file('data/fonts/ttf-inconsolata.otf'), 20)
-
-
-        self.player.animations['walk']['north'].sprite.texture.copy_to_image().save_to_file('debug.png')
 
         """
         db_b_t = sf.RectangleShape((self.top_bound.width, self.top_bound.height))

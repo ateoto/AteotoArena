@@ -28,8 +28,9 @@ g = age.game.Game('AteotoArena', res, fullscreen = args.fullscreen)
 
 render_area = sf.IntRect(0, 0, g.window.width * 2, g.window.height * 2)
 
-g.load_map('data/maps/0_0.tmx', render_area)
-g.player = age.actor.PCActor(location = g.level.objects['pc_initial_spawn'].position)
+#g.load_map('data/maps/0_0.tmx', render_area)
+#g.player = age.actor.PCActor(location = g.level.objects['pc_initial_spawn'].position)
+g.player = age.actor.PCActor(location = sf.Vector2f(50,50))
 g.player.load_inventory('inventory.json') #This is temporary until networked.
 g.load_animations('data/actors/human_male/animations.json')
 

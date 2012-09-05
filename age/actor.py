@@ -156,10 +156,10 @@ class PCActor(MoveableActor):
     def draw(self, target, states):
         # Maybe this just draws the animation instead of the sprite.
         if self.current_animation is not None:
-            self.sprite.set_texture(self.current_animation.sprite.texture)
-            self.sprite.set_texture_rect(self.current_animation.sprite.get_texture_rect())
-        
-        target.draw(self.sprite)
+            self.sprite.set_texture(self.current_animation.drawable.texture)
+            self.sprite.set_texture_rect(self.current_animation.drawable.texture_rect)
+
+            target.draw(self.sprite)
 
     def load_inventory(self, inventory_file):
         with open(inventory_file, 'r') as invf:
@@ -178,17 +178,17 @@ class PCActor(MoveableActor):
 
                 body = sf.RectangleShape(base_size)
                 body.set_texture(base_texture)
+                body.size = base_size
                 rt.draw(body)
                 for slot, item in self.inventory.iteritems():
                     if item is not None:
                         inv = sf.RectangleShape(base_size)
                         inv.set_texture(sf.Texture.load_from_file(os.path.join(base_dir, item)))
+                        inv.size = base_size
                         rt.draw(inv)
                 
                 rt.display()
                 self.cached_inv[anim['name']] = rt.texture.copy_to_image()
-                self.cached_inv[anim['name']].save_to_file("DEBUG_{0}.png".format(anim['name']))
-
 
     def load_animations(self, clock, animations_file = None):
         if animations_file is None:
@@ -210,9 +210,13 @@ class PCActor(MoveableActor):
             frames = []
             for frame in anim['frames']:
                 region = sf.IntRect(frame['x'], frame['y'], frame['width'], frame['height'])
-                frames.append(AnimationFrame(sf.Texture.load_from_image(self.cached_inv[anim['name']]), frame['duration'], region))
+                log.debug(region)
+                texture = sf.Texture.load_from_image(self.cached_inv[anim['name']])
+                aniframe = AnimationFrame(frame['duration'], region)
+                aniframe.drawable = sf.RectangleShape((texture.width, texture.height))
+                aniframe.drawable.set_texture(texture)
+                frames.append(aniframe)
 
             self.animations[anim['name']].update({anim['direction']: Animation(frames, clock)})
-
-        log.debug(self.animations)
+            log.debug(self.animations[anim['name']][anim['direction']].frames[0].drawable.texture.width)            
 
