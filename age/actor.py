@@ -1,5 +1,9 @@
 import sfml as sf
+
 import logging as log
+import json
+
+from .animation import AnimationFrame, Animation
 
 NORTH = sf.Vector2f(0, -1)
 WEST = sf.Vector2f(-1, 0)
@@ -46,6 +50,8 @@ class PCActor(MoveableActor):
 
         self.sprite = sf.Sprite(sf.Texture.load_from_file('data/actors/human_male/walkcycle/BODY_animation.png'))
         self.sprite.position = self.location
+
+        self.inventory = None
 
     def handle_keypress(self, event, dt):
         pass
@@ -139,8 +145,6 @@ class PCActor(MoveableActor):
             self.current_animation = animation
             self.current_animation.animate(dt, loop = loop)
 
-
-
     def move(self, location_delta, dt):
         self.location += location_delta * self.movespeed * self.timescale * dt
         self.bounding.left, self.bounding.top = self.location.x, self.location.y
@@ -154,3 +158,13 @@ class PCActor(MoveableActor):
             self.sprite.set_texture_rect(self.current_animation.sprite.get_texture_rect())
         
         target.draw(self.sprite)
+
+    def load_inventory(self, inventory_file):
+        with open(inventory_file, 'r') as invf:
+            self.inventory = json.loads(invf.read())
+
+    def load_animations(self, animations_file, clock):
+        with open(animations_file, 'r') as af:
+            anims = json.loads(af.read())
+        for anim in anims:
+            

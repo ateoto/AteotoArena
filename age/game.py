@@ -18,7 +18,7 @@ class Game(object):
         self.window = sf.RenderWindow(sf.VideoMode(res.x, res.y), title, style)
 
         self.running = False
-        self.player_character = None
+        self.player = None
         self.level = None
         self.ui = UI(sf.Vector2f(self.window.width, self.window.height))
         self.fullscreen = False
@@ -39,7 +39,7 @@ class Game(object):
     def load_animations(self, animations_file, textures):
         # This is just to see if RenderTextures will work from here.
         ani_dict = json.loads(open(animations_file, 'r').read())
-        self.player_character.animations.update({
+        self.player.animations.update({
             'idle' : {
                 'north': Animation.load_from_dict(ani_dict['idle']['north'], textures, self.clock),
                 'west': Animation.load_from_dict(ani_dict['idle']['west'], textures, self.clock),
@@ -78,8 +78,8 @@ class Game(object):
 
                     self.fullscreen = not self.fullscreen
                 
-                if self.player_character:
-                    self.player_character.handle_keypress(event, dt)
+                if self.player:
+                    self.player.handle_keypress(event, dt)
 
     def run(self):
         self.running = True
@@ -124,12 +124,12 @@ class Game(object):
             self.window.clear(sf.Color(94, 94, 94))
 
             if self.level is not None:
-                self.level.update(dt, self.player_character.show)
+                self.level.update(dt, self.player.show)
                 self.window.draw(self.level)
 
-            if self.player_character is not None:
-                self.player_character.update(dt, self.scrollboxes)
-                self.window.draw(self.player_character)
+            if self.player is not None:
+                self.player.update(dt, self.scrollboxes)
+                self.window.draw(self.player)
 
             """
             self.window.draw(db_b_t)

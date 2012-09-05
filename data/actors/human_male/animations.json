@@ -1,0 +1,338 @@
+[
+    {
+        "frames": [
+            {
+                "y": 0, 
+                "x": 0, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 0, 
+                "x": 64, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 0, 
+                "x": 128, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 0, 
+                "x": 192, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 0, 
+                "x": 256, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 0, 
+                "x": 320, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 0, 
+                "x": 384, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 0, 
+                "x": 448, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 0, 
+                "x": 512, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }
+        ], 
+        "direction": "north", 
+        "base": "data/actors/human_male/walkcycle",
+        "name": "walk"
+    }, 
+    {
+        "frames": [
+            {
+                "y": 64, 
+                "x": 0, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 64, 
+                "x": 64, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 64, 
+                "x": 128, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 64, 
+                "x": 192, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 64, 
+                "x": 256, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 64, 
+                "x": 320, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 64, 
+                "x": 384, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 64, 
+                "x": 448, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 64, 
+                "x": 512, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }
+        ], 
+        "direction": "west", 
+        "base": "data/actors/human_male/walkcycle",
+        "name": "walk"
+    }, 
+    {
+        "frames": [
+            {
+                "y": 128, 
+                "x": 0, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 128, 
+                "x": 64, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 128, 
+                "x": 128, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 128, 
+                "x": 192, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 128, 
+                "x": 256, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 128, 
+                "x": 320, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 128, 
+                "x": 384, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 128, 
+                "x": 448, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 128, 
+                "x": 512, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }
+        ], 
+        "direction": "south", 
+        "base": "data/actors/human_male/walkcycle",
+        "name": "walk"
+    }, 
+    {
+        "frames": [
+            {
+                "y": 192, 
+                "x": 0, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 192, 
+                "x": 64, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 192, 
+                "x": 128, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 192, 
+                "x": 192, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 192, 
+                "x": 256, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 192, 
+                "x": 320, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 192, 
+                "x": 384, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 192, 
+                "x": 448, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }, 
+            {
+                "y": 192, 
+                "x": 512, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }
+        ], 
+        "direction": "east", 
+        "base": "data/actors/human_male/walkcycle",
+        "name": "walk"
+    }, 
+    {
+        "frames": [
+            {
+                "y": 0, 
+                "x": 0, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }
+        ], 
+        "direction": "north", 
+        "base": "data/actors/human_male/walkcycle",
+        "name": "idle"
+    }, 
+    {
+        "frames": [
+            {
+                "y": 64, 
+                "x": 0, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }
+        ], 
+        "direction": "west", 
+        "base": "data/actors/human_male/walkcycle",
+        "name": "idle"
+    }, 
+    {
+        "frames": [
+            {
+                "y": 128, 
+                "x": 0, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }
+        ], 
+        "direction": "south", 
+        "base": "data/actors/human_male/walkcycle",
+        "name": "idle"
+    }, 
+    {
+        "frames": [
+            {
+                "y": 192, 
+                "x": 0, 
+                "duration": 0.1, 
+                "height": 64, 
+                "width": 64
+            }
+        ], 
+        "direction": "east", 
+        "base": "data/actors/human_male/walkcycle",
+        "name": "idle"
+    }
+]
