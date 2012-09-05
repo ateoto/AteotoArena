@@ -41,11 +41,17 @@ class Game(object):
         ani_dict = json.loads(open(animations_file, 'r').read())
         self.player_character.animations.update({
             'idle' : {
-                'south' : Animation.load_from_dict(ani_dict['idle']['south'], textures, self.clock)
-                },
+                'north': Animation.load_from_dict(ani_dict['idle']['north'], textures, self.clock),
+                'west': Animation.load_from_dict(ani_dict['idle']['west'], textures, self.clock),
+                'south': Animation.load_from_dict(ani_dict['idle']['south'], textures, self.clock),
+                'east': Animation.load_from_dict(ani_dict['idle']['east'], textures, self.clock)
+            },
             'walk' : {
-                'south' : Animation.load_from_dict(ani_dict['walk']['south'], textures, self.clock)
-                }})
+                'north' : Animation.load_from_dict(ani_dict['walk']['north'], textures, self.clock),
+                'west' : Animation.load_from_dict(ani_dict['walk']['west'], textures, self.clock),
+                'south' : Animation.load_from_dict(ani_dict['walk']['south'], textures, self.clock),
+                'east' : Animation.load_from_dict(ani_dict['walk']['east'], textures, self.clock)
+            }})
         self.window.active = True
 
     def update(self, dt):
