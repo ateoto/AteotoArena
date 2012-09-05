@@ -36,22 +36,8 @@ class Game(object):
         self.level = TiledMap(map_file, area)
         self.window.active = True
 
-    def load_animations(self, animations_file, textures):
-        # This is just to see if RenderTextures will work from here.
-        ani_dict = json.loads(open(animations_file, 'r').read())
-        self.player.animations.update({
-            'idle' : {
-                'north': Animation.load_from_dict(ani_dict['idle']['north'], textures, self.clock),
-                'west': Animation.load_from_dict(ani_dict['idle']['west'], textures, self.clock),
-                'south': Animation.load_from_dict(ani_dict['idle']['south'], textures, self.clock),
-                'east': Animation.load_from_dict(ani_dict['idle']['east'], textures, self.clock)
-            },
-            'walk' : {
-                'north' : Animation.load_from_dict(ani_dict['walk']['north'], textures, self.clock),
-                'west' : Animation.load_from_dict(ani_dict['walk']['west'], textures, self.clock),
-                'south' : Animation.load_from_dict(ani_dict['walk']['south'], textures, self.clock),
-                'east' : Animation.load_from_dict(ani_dict['walk']['east'], textures, self.clock)
-            }})
+    def load_animations(self, animations_file):
+        self.player.load_animations(self.clock, animations_file)
         self.window.active = True
 
     def update(self, dt):
@@ -89,6 +75,8 @@ class Game(object):
 
         fps_text = sf.Text('FPS:', sf.Font.load_from_file('data/fonts/ttf-inconsolata.otf'), 20)
 
+
+        self.player.animations['walk']['north'].sprite.texture.copy_to_image().save_to_file('debug.png')
 
         """
         db_b_t = sf.RectangleShape((self.top_bound.width, self.top_bound.height))

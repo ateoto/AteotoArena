@@ -2,6 +2,7 @@ import sfml as sf
 
 import logging as log
 import json
+import os
 
 from .animation import AnimationFrame, Animation
 
@@ -31,26 +32,27 @@ class NPCActor(MoveableActor):
         super(NPCActor, self).__init__()
 
 class PCActor(MoveableActor):
-    def __init__(self, location):
+    def __init__(self, animations_file = None, location = None):
         super(PCActor, self).__init__()
         self.timescale = 1
         self.movespeed = 100
         self.location = location
         self.moving_codes = [ sf.Keyboard.W, sf.Keyboard.A, sf.Keyboard.S, sf.Keyboard.D ]
         self.heading = SOUTH
-
         self.bounding = sf.IntRect(self.location.x, self.location.y, 64, 64)
         self.show = sf.FloatRect(0,0,800,600)
 
         self.is_moving = False
         self.is_animating = False
         
+        self.animation_file = animations_file
         self.animations = {}
         self.current_animation = None
 
         self.sprite = sf.Sprite(sf.Texture.load_from_file('data/actors/human_male/walkcycle/BODY_animation.png'))
         self.sprite.position = self.location
 
+        self.cached_inv = {}
         self.inventory = None
 
     def handle_keypress(self, event, dt):
@@ -163,8 +165,54 @@ class PCActor(MoveableActor):
         with open(inventory_file, 'r') as invf:
             self.inventory = json.loads(invf.read())
 
-    def load_animations(self, animations_file, clock):
+    def build_inventory_images(self):
+        with open(self.animations_file, 'r') as af:
+            anims = json.loads(af.read())
+            for anim in anims:
+                base_dir = anim['base']
+                base_texture = sf.Texture.load_from_file(os.path.join(base_dir, 'BODY_animation.png'))
+                base_size = sf.Vector2f(base_texture.width, base_texture.height)
+
+                rt = sf.RenderTexture(base_size.x, base_size.y)
+                rt.clear(sf.Color.TRANSPARENT)
+
+                body = sf.RectangleShape(base_size)
+                body.set_texture(base_texture)
+                rt.draw(body)
+                for slot, item in self.inventory.iteritems():
+                    if item is not None:
+                        inv = sf.RectangleShape(base_size)
+                        inv.set_texture(sf.Texture.load_from_file(os.path.join(base_dir, item)))
+                        rt.draw(inv)
+                
+                rt.display()
+                self.cached_inv[anim['name']] = rt.texture.copy_to_image()
+                self.cached_inv[anim['name']].save_to_file("DEBUG_{0}.png".format(anim['name']))
+
+
+    def load_animations(self, clock, animations_file = None):
+        if animations_file is None:
+            animations_file = self.animations_file
+        else:
+            self.animations_file = animations_file
+
         with open(animations_file, 'r') as af:
             anims = json.loads(af.read())
+
         for anim in anims:
-            
+            self.animations.update({anim['name']: {}})
+
+        self.build_inventory_images()
+
+        for anim in anims:
+            log.debug("Animation: {0}_{1}".format(anim['name'],anim['direction']))
+
+            frames = []
+            for frame in anim['frames']:
+                region = sf.IntRect(frame['x'], frame['y'], frame['width'], frame['height'])
+                frames.append(AnimationFrame(sf.Texture.load_from_image(self.cached_inv[anim['name']]), frame['duration'], region))
+
+            self.animations[anim['name']].update({anim['direction']: Animation(frames, clock)})
+
+        log.debug(self.animations)
+
