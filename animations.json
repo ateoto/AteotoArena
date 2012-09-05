@@ -1,0 +1,334 @@
+{
+    "idle": {
+        "west": {
+            "textures": [], 
+            "frames": [
+                {
+                    "y": 64, 
+                    "x": 0, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration" : 30
+                }
+            ], 
+            "name": "idle_west"
+        }, 
+        "east": {
+            "textures": [], 
+            "frames": [
+                {
+                    "y": 192, 
+                    "x": 0, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration" : 30
+                }
+            ], 
+            "name": "idle_east"
+        }, 
+        "north": {
+            "textures": [], 
+            "frames": [
+                {
+                    "y": 0, 
+                    "x": 0, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration" : 30
+                }
+            ], 
+            "name": "idle_north"
+        }, 
+        "south": {
+            "textures": [], 
+            "frames": [
+                {
+                    "y": 128, 
+                    "x": 0, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 30
+                }
+            ], 
+            "name": "idle_south"
+        }
+    }, 
+    "walk": {
+        "west": {
+            "textures": [], 
+            "frames": [
+                {
+                    "y": 64, 
+                    "x": 0, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 64, 
+                    "x": 64, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                },
+                {
+                    "y": 64, 
+                    "x": 128, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 64, 
+                    "x": 192, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 64, 
+                    "x": 256, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 64, 
+                    "x": 320, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 64, 
+                    "x": 384, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 64, 
+                    "x": 448, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 64, 
+                    "x": 512, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }
+            ], 
+            "name": "walk_west"
+        }, 
+        "east": {
+            "textures": [], 
+            "frames": [
+                {
+                    "y": 192, 
+                    "x": 0, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 192, 
+                    "x": 64, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 192, 
+                    "x": 128, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 192, 
+                    "x": 192, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 192, 
+                    "x": 256, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 192, 
+                    "x": 320, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 192, 
+                    "x": 384, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 192, 
+                    "x": 448, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 192, 
+                    "x": 512, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }
+            ], 
+            "name": "walk_east"
+        }, 
+        "north": {
+            "textures": [], 
+            "frames": [
+                {
+                    "y": 0, 
+                    "x": 0, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 0, 
+                    "x": 64, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 0, 
+                    "x": 128, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 0, 
+                    "x": 192, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 0, 
+                    "x": 256, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 0, 
+                    "x": 320, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 0, 
+                    "x": 384, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 0, 
+                    "x": 448, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 0, 
+                    "x": 512, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }
+            ], 
+            "name": "walk_north"
+        }, 
+        "south": {
+            "textures": [], 
+            "frames": [
+                {
+                    "y": 128, 
+                    "x": 0, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 128, 
+                    "x": 64, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 128, 
+                    "x": 128, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 128, 
+                    "x": 192, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 128, 
+                    "x": 256, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 128, 
+                    "x": 320, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 128, 
+                    "x": 384, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 128, 
+                    "x": 448, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }, 
+                {
+                    "y": 128, 
+                    "x": 512, 
+                    "height": 64, 
+                    "width": 64,
+                    "duration": 0.1
+                }
+            ], 
+            "name": "walk_south"
+        }
+    }
+}

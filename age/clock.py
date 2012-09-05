@@ -22,7 +22,7 @@ class ScheduledIntervalItem(object):
         self.kwargs = kwargs
 
     def __repr__(self):
-        return "{0}".format(self.next_ts)
+        return "{0}".format(self.func)
 
 class GameClock(sf.Clock):
 
@@ -112,5 +112,6 @@ class GameClock(sf.Clock):
         self.sort_scheduled_interval_items()
 
     def unschedule(self, func):
-        self.scheduled_items = [item for item in self.scheduled_items if item.func is not func]
-        self.scheduled_interval_items = [item for item in self.scheduled_interval_items if item.func is not func]
+        self.scheduled_items = [item for item in self.scheduled_items if item.func <> func]
+        self.scheduled_interval_items = [item for item in self.scheduled_interval_items if item.func <> func]
+

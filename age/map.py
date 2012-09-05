@@ -74,11 +74,11 @@ class TiledTileset:
                 local_id += 1
 
 class TiledMap:
-    def __init__(self, filename, area = None):
+    def __init__(self, filename, render_area = None):
         self.layers = []
         self.tiles = {}
         self.objects = {}
-        self.area = area
+        self.render_area = render_area
         self.load_started = time.time()
         self.load_from_file(filename)
 
@@ -129,8 +129,8 @@ class TiledMap:
             tl.raw_data = data
             self.layers.append(tl)
 
-        self.load_cell_data(self.area, force = True)
-        self.generate_layer_textures(self.area)
+        self.load_cell_data(self.render_area, force = True)
+        self.generate_layer_textures(self.render_area)
 
         log.debug('Layers loaded')
 
@@ -157,13 +157,16 @@ class TiledMap:
         load_time = self.load_finished - self.load_started
         log.debug('Level loaded in {0} seconds.'.format(load_time))
 
-    def load_cell_data(self, area, force = False):
+    def load_cell_data(self, render_area = None, force = False):
         """
         If force is true, this will regenerate tiles that were previously loaded.
         """
         
-        drawable_x_range = range(area.left / 32, int(math.ceil(area.width / 32)) + 1)
-        drawable_y_range = range(area.top / 32, int(math.ceil(area.height / 32)) + 1)
+        if render_area is None:
+            render_area = self.render_area
+
+        drawable_x_range = range(render_area.left / 32, int(math.ceil(render_area.width / 32)) + 1)
+        drawable_y_range = range(render_area.top / 32, int(math.ceil(render_area.height / 32)) + 1)
 
         for layer in self.layers:
             for i, gid in enumerate(layer.raw_data):
@@ -176,13 +179,16 @@ class TiledMap:
                         if not isinstance(layer[x,y], TiledCell) or force:
                             layer.cells[x,y] = TiledCell((x * 32, y * 32), self.tiles[gid])
             
-    def generate_layer_textures(self, area):
-        drawable_x_range = range(area.left / 32, int(math.ceil(area.width / 32)) + 1)
-        drawable_y_range = range(area.top / 32, int(math.ceil(area.height / 32)) + 1)
+    def generate_layer_textures(self, render_area = None):
+        if render_area is None:
+            render_area = self.render_area
+
+        drawable_x_range = range(render_area.left / 32, int(math.ceil(render_area.width / 32)) + 1)
+        drawable_y_range = range(render_area.top / 32, int(math.ceil(render_area.height / 32)) + 1)
 
         for layer in self.layers:
             if layer.visible:
-                rt = sf.RenderTexture(area.width, area.height)
+                rt = sf.RenderTexture(render_area.width, render_area.height)
                 rt.clear(sf.Color.TRANSPARENT)
             
                 for y in drawable_y_range:
@@ -193,16 +199,14 @@ class TiledMap:
             
                 rt.display()
                 layer.drawable.set_texture(sf.Texture.load_from_image(rt.texture.copy_to_image()))
-                layer.drawable.size = sf.Vector2f(area.width, area.height)
-                layer.drawable.texture_rect = sf.IntRect(0, 0, area.width, area.height)
+                layer.drawable.size = sf.Vector2f(render_area.width, render_area.height)
+                layer.drawable.texture_rect = render_area
 
-    def update(self, area):
-        """
-        Here we set the map area to the player's location, determine if we need to load more of the map, and so on.
-        """
-        pass
+    def update(self, dt, area):
+        self.render_area = sf.IntRect(area.left, area.top, self.render_area.width, self.render_area.height)
 
     def draw(self, target, states):
         for layer in self.layers:
+            layer.drawable.texture_rect = self.render_area
             if layer.visible:
                 target.draw(layer.drawable)
