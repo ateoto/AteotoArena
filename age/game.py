@@ -23,6 +23,8 @@ class Game(object):
         self.ui = UI(sf.Vector2f(self.window.width, self.window.height))
         self.fullscreen = False
         self.show = sf.FloatRect(0,0,self.window.width, self.window.height)
+        self.drop = []
+
         # Build scrolling borders
         w_percent = self.window.width * 0.30
         h_percent = self.window.height * 0.30
@@ -38,14 +40,22 @@ class Game(object):
 
     def load_animations(self, animations_file, textures):
         # This is just to see if RenderTextures will work from here.
+        self.window.active = False
         ani_dict = json.loads(open(animations_file, 'r').read())
         self.player_character.animations.update({
             'idle' : {
-                'south' : Animation.load_from_dict(ani_dict['idle']['south'], textures, self.clock)
+                'north': Animation.load_from_dict(ani_dict['idle']['north'], textures, self.clock, self.drop),
+                'west': Animation.load_from_dict(ani_dict['idle']['west'], textures, self.clock, self.drop),
+                'south': Animation.load_from_dict(ani_dict['idle']['south'], textures, self.clock, self.drop),
+                'east': Animation.load_from_dict(ani_dict['idle']['east'], textures, self.clock, self.drop)
                 },
             'walk' : {
-                'south' : Animation.load_from_dict(ani_dict['walk']['south'], textures, self.clock)
+                'north' : Animation.load_from_dict(ani_dict['walk']['north'], textures, self.clock, self.drop),
+                'west' : Animation.load_from_dict(ani_dict['walk']['west'], textures, self.clock, self.drop),
+                'south' : Animation.load_from_dict(ani_dict['walk']['south'], textures, self.clock, self.drop),
+                'east' : Animation.load_from_dict(ani_dict['walk']['east'], textures, self.clock, self.drop)
                 }})
+        log.debug(self.drop)
         self.window.active = True
 
     def update(self, dt):

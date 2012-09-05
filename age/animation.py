@@ -18,7 +18,7 @@ class Animation(object):
         log.debug('Animation loaded. {0} frames.'.format(len(self.frames)))
 
     @classmethod
-    def load_from_dict(self, animation_dict, texturelist, clock):
+    def load_from_dict(self, animation_dict, texturelist, clock, drop):
         log.debug(animation_dict['name'])
         
         # First step is to build the compiled textures. So lets load them up.
@@ -46,18 +46,22 @@ class Animation(object):
         
         rt.display()
     
+        drop.append(rt)
         log.debug('copying image')
         compiled_image = rt.texture.copy_to_image()
         
         compiled_image.save_to_file("debug_{0}.png".format(animation_dict['name']))
-
         compiled_texture = sf.Texture.load_from_image(compiled_image)
+        drop.append(compiled_texture)
+
         frames = []
 
         for frame in animation_dict['frames']:
             area = sf.IntRect(frame['x'], frame['y'], frame['width'], frame['height'])
             frames.append(AnimationFrame(compiled_texture, frame['duration'], area))
         
+        drop.append(frames)
+
         return Animation(frames, clock)
 
     def save_to_dict(self, name):
