@@ -34,8 +34,8 @@ class GameClock(sf.Clock):
             self.time = time.time
 
         self.frame = 0
-        self.fpses = deque()
-        self.ticks = deque()
+        self.fpses = deque(maxlen = 1000)
+        self.ticks = deque(maxlen = 1000)
         self.fps = 0
         self.average_fps = 0
         self.started = self.time()
@@ -72,8 +72,6 @@ class GameClock(sf.Clock):
         self.restart()
         self.last_ts = ts
         self.ticks.append(dt)
-        while len(self.ticks) > 1000:
-            self.ticks.popleft()
 
         return dt
 
@@ -84,8 +82,6 @@ class GameClock(sf.Clock):
         else:
             self.fps = int(len(self.ticks) / total_frame_time)
         self.fpses.append(self.fps)
-        while len(self.fpses) > 1000:
-            self.fpses.popleft()
         self.average_fps = int(sum(self.fpses) / len(self.fpses))
 
     def sort_scheduled_interval_items(self):
